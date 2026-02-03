@@ -1,40 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Will you be my Valentine?</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin-top: 100px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      margin: 10px;
-      position: relative;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will you be my Valentine?</title>
+
+<style>
+/* Estilos generales */
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+    text-align: center;
+    position: relative;
+}
+
+/* Corazones flotando grandes y suaves */
+.heart {
+    position: absolute;
+    color: #ff1a66;
+    font-size: 25px;
+    animation: float 6s linear infinite;
+    opacity: 0.8;
+}
+@keyframes float {
+    0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+}
+
+/* Foto redonda opcional */
+img#photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 3px solid white;
+    box-shadow: 0 0 20px rgba(255,0,128,0.5);
+}
+
+/* Título con efecto parpadeo */
+h1 {
+    font-size: 42px;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    animation: blink 1.5s infinite alternate;
+}
+@keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0.7;}
+    100% {opacity: 1;}
+}
+
+/* Botones estilo romántico */
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    margin: 15px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.yes-btn {
+    background-color: #ff4d88;
+    color: white;
+    box-shadow: 0 0 15px #ff4d88;
+}
+
+.yes-btn:hover {
+    background-color: #ff1a66;
+    transform: scale(1.2);
+    box-shadow: 0 0 30px #ff1a66;
+}
+
+.no-btn {
+    background-color: white;
+    color: #ff4d88;
+    position: relative;
+    box-shadow: 0 0 5px #ff4d88;
+}
+
+/* Ajuste móvil */
+@media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    button { font-size: 18px; padding: 12px 25px; }
+    img#photo { width: 120px; height: 120px; }
+}
+</style>
 </head>
+
 <body>
 
-<h1>Ladoo, Will you be my Valentine? ❤️</h1>
+<!-- FOTO: reemplaza la URL con tu imagen -->
+<img id="photo" src="https://instagram.fvlc6-1.fna.fbcdn.net/v/t51.2885-19/608411072_18114670114608333_3525022061791616194_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fvlc6-1.fna.fbcdn.net&_nc_cat=109&_nc_oc=Q6cZ2QEDTATnFiKlp98yG5oWTiWChLLUjsvqokCuPJgaV3GXFhg7saM9WIDHcbFQB2Bt3q4&_nc_ohc=DoQLvKmYuwgQ7kNvwHze5J0&_nc_gid=BTwBozR7dTLC9L57pcIcrw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfsbCNnfXiIzeKOC0d91tdVNn0tNxYlE1C7lSb6MtG6PlQ&oe=698770D9&_nc_sid=8b3546" alt="Tu foto">
 
-<button onclick="sayYes()">Sí, Si 💖</button>
-<button id="noBtn" onmouseover="moveButton()">No 😅</button>
+<h1>Will you be my Valentine? 💕</h1>
+
+<button class="yes-btn" id="yesBtn" onclick="sayYes()">Yes 💖</button>
+<button class="no-btn" id="noBtn" onmouseover="moveButton()">No 😅</button>
+
+<!-- MÚSICA ROMÁNTICA -->
+<audio id="music" autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
 
 <script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
 function sayYes() {
-  document.body.innerHTML = "<h1>Yaaay! 💕</h1>";
+    document.body.innerHTML = "<h1 style='color:white; font-size:50px;'>Yaaay! 💘 I knew it!</h1>";
 }
 
+// Botón "No" se mueve y "Yes" brilla
 function moveButton() {
-  const button = document.getElementById("noBtn");
-  button.style.position = "absolute";
-  button.style.top = Math.random() * window.innerHeight + "px";
-  button.style.left = Math.random() * window.innerWidth + "px";
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    yesBtn.style.transform = "scale(1.4)";
+    yesBtn.style.boxShadow = "0 0 40px #ff1a66";
+    setTimeout(() => {
+        yesBtn.style.transform = "scale(1)";
+        yesBtn.style.boxShadow = "0 0 15px #ff4d88";
+    }, 300);
 }
+
+// Crear corazones automáticos
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 25 + 20 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}
+
+setInterval(createHeart, 250);
 </script>
 
 </body>
 </html>
+
